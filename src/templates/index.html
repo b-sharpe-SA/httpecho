@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HttpEcho</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" href="data:,">
+  <style>
+    body {
+      font-family: Liberation Sans, Arial, sans-serif;
+      background-color: #fffaf7;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 70ch;
+      padding: 2ch;
+      margin: auto;
+    }
+    header {
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      margin-bottom: .5rem;
+      color: #4c008f;
+    }
+    pre {
+      white-space: pre-line;
+    }
+    ul {
+      list-style: circle;
+    }
+    li:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+    a {
+      color: #4c008f;
+      text-decoration: none;
+      outline: 0;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    ::selection {
+      background-color: #fff888;
+    }
+  </style>
+</head>
+<body>
+
+<main>
+  <article>
+    <header>
+      <h1>HttpEcho</h1>
+    </header>
+    <p>
+      HttpEcho is a dead simple echo app that responds to a request with the desired HTTP status code. It is heavily
+      inspired by <a href="https://httpstat.us" target="_blank" rel="noopener noreferrer">httpstat.us</a>.
+    </p>
+    <hr>
+    <p>
+      Features:
+      <ul>
+        <li>Handles known and unknown HTTP statuses.</li>
+        <li>Set optional custom delay between request and response (useful to test-trigger timeouts).</li>
+        <li>CORS-ready.</li>
+        <li>FOSS.</li>
+      </ul>
+    </p>
+    <hr>
+    <p>
+      Example requests and responses:
+      <ul>
+        <li>Simplest 200:
+          <pre>
+            ==> curl {{ base_url_without_path }}/200
+            <== {"code": 200, "description": "OK"}
+          </pre>
+        </li>
+        <li>200 with 2500ms delay:
+          <pre>
+            ==> curl {{ base_url_without_path }}/200?sleep=2500
+            🕜 wait approximately 2.5s
+            <== {"code": 200, "description": "OK"}
+          </pre>
+        </li>
+        <li>404:
+          <pre>
+            ==> curl {{ base_url_without_path }}/404
+            <== {"code": 404, "description": "Not Found"}
+          </pre>
+        </li>
+        <li>666 (custom status):
+          <pre>
+            ==> curl {{ base_url_without_path }}/666
+            <== {"code": 666, "description": "Unknown"}
+          </pre>
+        </li>
+      </ul>
+    </p>
+    <hr>
+    <p>
+      Details:
+      <ul>
+        <li>Response will be encoded in JSON whenever possible, just make sure your <code>Accept</code> request header allows it.</li>
+        <li>Max sleep duration is 5 minutes (could be less depending on your server configuration).</li>
+      </ul>
+    </p>
+    <hr>
+    <p>
+      Credits:
+      <ul>
+        <li>CSS of the index page is from this great tiny article: <a href="https://jrl.ninja/etc/1/">58 bytes of css to look great nearly everywhere</a>.</li>
+      </ul>
+    </p>
+  </article>
+</main>
+
+</body>
+</html>
